@@ -7,7 +7,7 @@
     "start": "webpack-dev-server --config ./webpack.config.js --open",
     "build": "webpack --watch --mode development --config ./webpack.config.js",
     "test": "jest",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watchAll"
   },
   "keywords": [],
   "author": "",
