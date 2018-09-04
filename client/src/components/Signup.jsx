@@ -5,9 +5,12 @@ import {
   InputLabel,
   FormControl,
   InputAdornment,
+  Button,
+  Icon,
 } from '@material-ui/core';
 import Email from '@material-ui/icons/Email';
 import VpnKey from '@material-ui/icons/VpnKey';
+import AccountBox from '@material-ui/icons/AccountBox';
 
 
 function Signup() {
@@ -59,6 +62,12 @@ function Signup() {
             }
           />
         </FormControl>
+      </div>
+      <div>
+        <Button variant="contained" color="primary" className="create-new-account">
+          Create New Account
+          <Icon><AccountBox /></Icon>
+        </Button>
       </div>
     </div>
   );

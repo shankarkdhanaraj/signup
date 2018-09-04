@@ -2,15 +2,16 @@ import React, { Component } from 'react';
 import { shallow } from 'enzyme';
 import Signup from '../../src/components/Signup.jsx';
 import setupJestEnzyme from '../setup/setupJestEnzyme.js';
-import { Input, InputLabel, FormControl } from '@material-ui/core';
-import { createShallow } from '@material-ui/core/test-utils';
+import FormControl from '@material-ui/core/FormControl';
+import InputLabel from '@material-ui/core/InputLabel';
+import Input from '@material-ui/core/Input';
+import Button from '@material-ui/core/Button';
+
 
 describe('signup', () => {
   var signup;
-  // let shallow;
 
   beforeEach( () => {
-    // shallow = createShallow();
     signup = shallow(<Signup />);
   });
 
@@ -35,5 +36,9 @@ describe('signup', () => {
 
   it('has a place to enter the password', () => {
     expect(signup.find(Input).filter('.password')).toHaveLength(1);
+  });
+
+  it('has a way to submit information for signup', () => {
+    expect(signup.find(Button).filter('.create-new-account')).toHaveLength(1);
   });
 });
