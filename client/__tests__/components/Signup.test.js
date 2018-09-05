@@ -15,7 +15,6 @@ describe('signup', () => {
     signup = shallow(<Signup />);
   });
 
-
   it('renders signup correctly', () => {
     expect(signup).toMatchSnapshot();
   });
