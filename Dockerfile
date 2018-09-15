@@ -1,4 +1,4 @@
-FROM node:6
+FROM node:6-alpine
 
 # Some image metadata
 LABEL version="0.1"
@@ -22,7 +22,7 @@ COPY package*.json ./
 # Run build if necessary with devDependencies then clean them up
 RUN npm install
 
-# Copy API source code
+# Copy source code
 COPY . .
 
 

@@ -14,13 +14,14 @@
     "start": "if [[ ${NODE_ENV} = production ]]; then pm2-docker start -i 0 ./server/index.js; else pm2-dev ./server/index.js & webpack --watch --mode development --config ./webpack.config.js; fi",
     "build": "webpack --watch --mode development --config ./webpack.config.js",
     "test": "jest",
-    "test:watch": "jest --watchAll",
+    "test:watch": "jest --watch",
     "lint": "eslint . --ext .js,.jsx"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "jest": {
+    "verbose": false,
     "transformIgnorePatterns": [
       "!node_modules/react-runtime"
     ],
@@ -65,6 +66,8 @@
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
     "react-hot-loader": "^4.3.5",
+    "react-redux": "^5.0.7",
+    "redux": "^4.0.0",
     "webpack": "^4.17.1"
   },
   "babel": {
