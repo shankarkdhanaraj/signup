@@ -7,3 +7,5 @@ dist/
 
 # Test files
 client/__tests__
+
+buildspec.yml
