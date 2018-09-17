@@ -115,7 +115,7 @@ const Signup = ({
       </Grid>
       <Grid>
         <Button variant="contained" color="primary" className="create-new-account submit-form" onClick={() => createAccount()}>
-          Create Newer Account
+          Create Account
           <Icon><AccountBox /></Icon>
         </Button>
       </Grid>
