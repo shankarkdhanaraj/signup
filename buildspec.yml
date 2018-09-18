@@ -16,4 +16,8 @@ phases:
       - echo Build completed on `date`
       - echo Pushing the Docker image...
       - docker push 103274529779.dkr.ecr.us-east-1.amazonaws.com/signup-awscodebuild:latest
-      - docker run -d -e NODE_ENV=production -p 80:3000 signup-awscodebuild
+      - echo docker run -d -e NODE_ENV=production -p 80:3000 signup-awscodebuild
+      - echo Writing image definitions file...
+      - printf '[{"name":"signup-awscodebuild","imageUri":"%s"}]' 103274529779.dkr.ecr.us-east-1.amazonaws.com/signup-awscodebuild:latest > imagedefinitions.json
+artifacts:
+    files: imagedefinitions.json
