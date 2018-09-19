@@ -5,6 +5,8 @@ export const UPDATE_PASSWORD = 'UPDATE_PASSWORD';
 export const UPDATE_ZIPCODE = 'UPDATE_ZIPCODE';
 export const CREATE_ACCOUNT = 'CREATE_ACCOUNT';
 export const TOGGLE_PASSWORD_VISIBILITY = 'TOGGLE_PASSWORD_VISIBILITY';
+export const CREATE_ACCOUNT_SUCCESS = 'CREATE_ACCOUNT_SUCCESS';
+export const CREATE_ACCOUNT_FAILURE = 'CREATE_ACCOUNT_FAILURE';
 
 export function updateFirstName(firstName) {
   return {
@@ -41,9 +43,39 @@ export function updateZipcode(zipcode) {
   };
 }
 
-export function createAccount() {
+export function startAccountCreation() {
   return {
     type: CREATE_ACCOUNT,
+  };
+}
+
+
+export function createAccountSuccess(successMessage) {
+  return {
+    type: CREATE_ACCOUNT_SUCCESS,
+    successMessage,
+  }
+}
+
+export function createAccount(data) {
+  return function (dispatch) {
+    dispatch(startAccountCreation());
+    const options = {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'same-origin',
+    };
+    return fetch('/Signup', options)
+      .then(
+        response => response.text(),
+        (error) => { console.log('An error occured...', error.message); },
+      )
+      .then(
+        text => dispatch(createAccountSuccess(text)),
+      );
   };
 }
 

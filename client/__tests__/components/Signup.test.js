@@ -6,6 +6,7 @@ import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import Input from '@material-ui/core/Input';
 import Button from '@material-ui/core/Button';
+import { createAccount } from '../../src/actions/actions';
 
 
 describe('signup', () => {
@@ -46,35 +47,29 @@ describe('signup', () => {
 describe('signup user actions', () => {
   let signupInteractive;
   const mockFn = jest.fn();
-  let signupProps = {
-    onFirstNameChange: () => mockFn(),
-    onLastNameChange: () => mockFn(),
-    onEmailChange: () => mockFn(),
-    onPasswordChange: () => mockFn(),
-    onZipcodeChange: () => mockFn(),
-    createAccount: () => mockFn(),
-  };
-
-
-  beforeEach( () => {
-    signupInteractive = shallow(<Signup onFirstNameChange={mockFn} onLastNameChange={mockFn} onEmailChange={mockFn} onPasswordChange={mockFn} onZipcodeChange={mockFn} createAccount={mockFn}
-    />);
-  });
-
-  // afterEach( () => {
-  //   signupInteractive.unmount();
-  // });
 
   it('allows the user to submit the signup form', () => {
-    // const spy = jest.spyOn(signupInteractive.instance(), 'createAccount')
+    signupInteractive = shallow(<Signup onFirstNameChange={mockFn} onLastNameChange={mockFn} onEmailChange={mockFn} onPasswordChange={mockFn} onZipcodeChange={mockFn} createAccount={mockFn}
+    />);
     signupInteractive.find(Button).simulate('click');
-    // expect(spy).toHaveBeenCalled();
     expect(mockFn).toHaveBeenCalled();
   });
 
-  it('allows user to submit a form with the data in the first name and last name fields', () => {
-
-  });
+  // it('allows user to submit a form with the data in the first name and last name fields', () => {
+  //   let createAccountAction = createAccount;
+  //   signupInteractive = mount(<Signup
+  //     onFirstNameChange={mockFn}
+  //     onLastNameChange={mockFn}
+  //     onEmailChange={mockFn}
+  //     onPasswordChange={mockFn}
+  //     onZipcodeChange={mockFn}
+  //     createAccount={mockFn}
+  //   />);
+  //   const spy = jest.spyOn(signupInteractive, 'createAccount')
+  //   signupInteractive.find(Button).simulate('click');
+  //   expect(spy).toHaveBeenCalled();
+  //   // expect(createAccountAction).toHaveBeenCalled();
+  // });
 
 
   // it('allows user to submit a form only if email address and zipcode is filled', () => {

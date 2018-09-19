@@ -146,7 +146,7 @@ ShallowWrapper {
             onClick={[Function]}
             variant="contained"
           >
-            Create Newer Account
+            Create Account
             <WithStyles(Icon)>
               <pure(AccountBoxIcon) />
             </WithStyles(Icon)>
@@ -290,7 +290,7 @@ ShallowWrapper {
               onClick={[Function]}
               variant="contained"
             >
-              Create Newer Account
+              Create Account
               <WithStyles(Icon)>
                 <pure(AccountBoxIcon) />
               </WithStyles(Icon)>
@@ -918,7 +918,7 @@ ShallowWrapper {
               onClick={[Function]}
               variant="contained"
             >
-              Create Newer Account
+              Create Account
               <WithStyles(Icon)>
                 <pure(AccountBoxIcon) />
               </WithStyles(Icon)>
@@ -931,7 +931,7 @@ ShallowWrapper {
             "nodeType": "class",
             "props": Object {
               "children": Array [
-                "Create Newer Account",
+                "Create Account",
                 <WithStyles(Icon)>
                   <pure(AccountBoxIcon) />
                 </WithStyles(Icon)>,
@@ -943,7 +943,7 @@ ShallowWrapper {
             },
             "ref": null,
             "rendered": Array [
-              "Create Newer Account",
+              "Create Account",
               Object {
                 "instance": null,
                 "key": undefined,
@@ -1109,7 +1109,7 @@ ShallowWrapper {
               onClick={[Function]}
               variant="contained"
             >
-              Create Newer Account
+              Create Account
               <WithStyles(Icon)>
                 <pure(AccountBoxIcon) />
               </WithStyles(Icon)>
@@ -1253,7 +1253,7 @@ ShallowWrapper {
                 onClick={[Function]}
                 variant="contained"
               >
-                Create Newer Account
+                Create Account
                 <WithStyles(Icon)>
                   <pure(AccountBoxIcon) />
                 </WithStyles(Icon)>
@@ -1881,7 +1881,7 @@ ShallowWrapper {
                 onClick={[Function]}
                 variant="contained"
               >
-                Create Newer Account
+                Create Account
                 <WithStyles(Icon)>
                   <pure(AccountBoxIcon) />
                 </WithStyles(Icon)>
@@ -1894,7 +1894,7 @@ ShallowWrapper {
               "nodeType": "class",
               "props": Object {
                 "children": Array [
-                  "Create Newer Account",
+                  "Create Account",
                   <WithStyles(Icon)>
                     <pure(AccountBoxIcon) />
                   </WithStyles(Icon)>,
@@ -1906,7 +1906,7 @@ ShallowWrapper {
               },
               "ref": null,
               "rendered": Array [
-                "Create Newer Account",
+                "Create Account",
                 Object {
                   "instance": null,
                   "key": undefined,
