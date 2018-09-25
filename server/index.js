@@ -7,7 +7,6 @@ const app = express();
 app.use('/signup', express.static('public'));
 app.use('/signup', express.static('dist'));
 
-app.get('/signup/createaccount', (req, res) => res.send('Signup Create'));
-app.post('/signup/createaccount', (req, res) => res.send('Signup Success'));
+app.post('/signup', (req, res) => res.end('Signup Success'));
 
 app.listen(PORT);

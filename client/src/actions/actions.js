@@ -68,7 +68,7 @@ export function createAccount(data) {
       },
       credentials: 'same-origin',
     };
-    return fetch('/signup/createaccount', options)
+    return fetch('/signup', options)
       .then(
         response => response.text(),
         (error) => { console.log('An error occured...', error.message); },
