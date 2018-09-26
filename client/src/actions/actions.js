@@ -54,20 +54,35 @@ export function createAccountSuccess(successMessage) {
   return {
     type: CREATE_ACCOUNT_SUCCESS,
     successMessage,
-  }
+  };
 }
 
-export function createAccount(data) {
-  return function (dispatch) {
-    dispatch(startAccountCreation());
+export function createAccount() {
+  function asyncCreateAccount(dispatch, getState) {
+    const {
+      firstName,
+      lastName,
+      email,
+      password,
+      zipcode,
+    } = getState();
+    const data = {
+      firstName,
+      lastName,
+      email,
+      password,
+      zipcode,
+    };
     const options = {
       method: 'POST',
-      body: JSON.stringify(data),
       headers: {
         'Content-Type': 'application/json',
       },
+      body: JSON.stringify(data),
       credentials: 'same-origin',
     };
+
+    dispatch(startAccountCreation());
     return fetch('/signup', options)
       .then(
         response => response.text(),
@@ -76,7 +91,9 @@ export function createAccount(data) {
       .then(
         text => dispatch(createAccountSuccess(text)),
       );
-  };
+  }
+
+  return asyncCreateAccount;
 }
 
 export function toggleShowPassword() {
