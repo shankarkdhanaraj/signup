@@ -4,7 +4,7 @@ const { isExistingUser, createNewUser, createNewUserProfile } = require('./utils
 // const createNewUser = require('./utils.js');
 // const createNewUserProfile = require('./utils.js');
 
-const PORT = process.env.PORT || 80;
+const PORT = process.env.PORT || 3000;
 
 
 const app = express();

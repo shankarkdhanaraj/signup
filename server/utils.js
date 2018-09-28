@@ -1,6 +1,6 @@
 const fetch = require('node-fetch');
 const profileURI = '';
-const LOGIN_URI = 'http://localhost:3000/createlogin';
+const LOGIN_URI = process.env.LOGIN_URI || 'http://localhost:50000';
 
 function checkForExistingUserInProfileMS(email) {
 // code for checking with profile microservice to check for existing user
@@ -15,7 +15,7 @@ function createNewUserInLoginMS(password) {
     body: JSON.stringify({ password: password }),
     credentials: 'same-origin',
   };
-  return fetch(LOGIN_URI, options)
+  return fetch(`${LOGIN_URI}/createlogin`, options)
     .then(response => {console.log('Response sucess...',response); return response.text();},
       (error) => {console.log('Response fail...',error); return error.message;});
   // return true; //should return userID if successful

@@ -85,7 +85,7 @@ export function createAccount() {
     dispatch(startAccountCreation());
     return fetch('/signup', options)
       .then(
-        response => response.text(),
+        response => response.json(),
         (error) => { console.log('An error occured...', error.message); },
       )
       .then(
