@@ -16,8 +16,8 @@ function createNewUserInLoginMS(password) {
     credentials: 'same-origin',
   };
   return fetch(`${LOGIN_URI}/createlogin`, options)
-    .then(response => {console.log('Response sucess...',response); return response.text();},
-      (error) => {console.log('Response fail...',error); return error.message;});
+    .then(response => response.text(),
+      error => error.message);
   // return true; //should return userID if successful
 }
 
