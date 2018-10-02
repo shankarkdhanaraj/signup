@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { hot } from 'react-hot-loader';
 import {
   Input,
+  TextField,
   InputLabel,
   FormControl,
   InputAdornment,
@@ -40,51 +41,63 @@ const Signup = ({
   createAccount,
   onClickShowPassword,
   showPassword,
+  firstNameNotEntered,
+  lastNameNotEntered,
+  emailNotEntered,
+  passwordNotEntered,
+  zipcodNotEntered,
 }) => (
   <div>
     <form>
       <Grid>
         <div>
-          <FormControl required>
-            <InputLabel htmlFor="signup-first-name" className="first-name">First Name</InputLabel>
-            <Input type="text" id="signup-first-name" className="first-name" placeholder="First Name" onChange={event => onFirstNameChange(event.target.value)} />
-          </FormControl>
+          <TextField
+            required
+            error={firstNameNotEntered}
+            id="signup-first-name"
+            label="First Name"
+            placeholder="First Name"
+            onChange={event => onFirstNameChange(event.target.value)}
+          />
         </div>
         <div>
-          <FormControl required>
-            <InputLabel htmlFor="signup-last-name" className="last-name">Last Name</InputLabel>
-            <Input type="text" id="signup-last-name" className="last-name" placeholder="Last Name" onChange={event => onLastNameChange(event.target.value)} />
-          </FormControl>
+          <TextField
+            required
+            error={lastNameNotEntered}
+            id="signup-last-name"
+            label="Last Name"
+            placeholder="Last Name"
+            onChange={event => onLastNameChange(event.target.value)}
+          />
         </div>
         <div>
-          <FormControl required>
-            <InputLabel htmlFor="signup-zipcode" className="zipcode">Zipcode</InputLabel>
-            <Input type="text" id="signup-zipcode" className="zipcode" placeholder="Zipcode" onChange={event => onZipcodeChange(event.target.value)} />
-          </FormControl>
+          <TextField
+            required
+            error={zipcodNotEntered}
+            id="signup-zipcode"
+            label="Zipcode"
+            placeholder="Zipcode"
+            onChange={event => onZipcodeChange(event.target.value)}
+          />
         </div>
         <div>
-          <FormControl required>
-            <InputLabel htmlFor="signup-email-address" className="email-address">Email</InputLabel>
+          <TextField
+            required
+            error={emailNotEntered}
+            id="signup-email-address"
+            label="Email"
+            placeholder="drone@globex.com"
+            onChange={event => onEmailChange(event.target.value)}
+            InputProps={{
+              startAdornment: <InputAdornment position="start"><Email /></InputAdornment>,
+            }}
+          />
+        </div>
+        <div>
+          <FormControl required error={passwordNotEntered}>
+            <InputLabel error={passwordNotEntered} htmlFor="signup-password" className="password">Password</InputLabel>
             <Input
-              type="email"
-              id="signup-email-address"
-              className="email-address"
-              placeholder="drone@globex.com"
-              startAdornment={
-                (
-                  <InputAdornment position="start">
-                    <Email />
-                  </InputAdornment>
-                )
-              }
-              onChange={event => onEmailChange(event.target.value)}
-            />
-          </FormControl>
-        </div>
-        <div>
-          <FormControl required>
-            <InputLabel htmlFor="signup-password" className="password">Password</InputLabel>
-            <Input
+              error={passwordNotEntered}
               type={showPassword ? 'text' : 'password'}
               id="signup-password"
               className="password"
@@ -133,6 +146,11 @@ Signup.propTypes = {
   createAccount: PropTypes.func.isRequired,
   onClickShowPassword: PropTypes.func.isRequired,
   showPassword: PropTypes.bool.isRequired,
+  firstNameNotEntered: PropTypes.bool.isRequired,
+  lastNameNotEntered: PropTypes.bool.isRequired,
+  emailNotEntered: PropTypes.bool.isRequired,
+  passwordNotEntered: PropTypes.bool.isRequired,
+  zipcodNotEntered: PropTypes.bool.isRequired,
 };
 
 // Signup.defaultProps = {

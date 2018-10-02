@@ -11,6 +11,12 @@ import {
   createAccountReducer,
   createAccountSuccessReducer,
   createAccountFailureReducer,
+  firstNameEntryChecker,
+  lastNameEntryChecker,
+  emailEntryChecker,
+  passwordEntryChecker,
+  zipcodeEntryChecker,
+  requiredFieldsFilledChecker,
 } from './create_account_reducers';
 
 export default combineReducers({
@@ -23,4 +29,10 @@ export default combineReducers({
   isCreatingAccount: createAccountReducer,
   isAccountCreateSuccess: createAccountSuccessReducer,
   isAccountCreateFailure: createAccountFailureReducer,
+  firstNameNotEntered: firstNameEntryChecker,
+  lastNameNotEntered: lastNameEntryChecker,
+  emailNotEntered: emailEntryChecker,
+  passwordNotEntered: passwordEntryChecker,
+  zipcodNotEntered: zipcodeEntryChecker,
+  requiredFieldsFilled: requiredFieldsFilledChecker,
 });

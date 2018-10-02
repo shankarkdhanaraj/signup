@@ -21,6 +21,20 @@ const mapDispatchToProps = dispatch => ({
   onClickShowPassword: () => dispatch(toggleShowPassword()),
 });
 
-const mapStateToProps = ({ showPassword }) => ({ showPassword });
+const mapStateToProps = ({
+  showPassword,
+  firstNameNotEntered,
+  lastNameNotEntered,
+  emailNotEntered,
+  passwordNotEntered,
+  zipcodNotEntered,
+}) => ({
+  showPassword,
+  firstNameNotEntered,
+  lastNameNotEntered,
+  emailNotEntered,
+  passwordNotEntered,
+  zipcodNotEntered,
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Signup);

@@ -5,8 +5,15 @@ export const UPDATE_PASSWORD = 'UPDATE_PASSWORD';
 export const UPDATE_ZIPCODE = 'UPDATE_ZIPCODE';
 export const CREATE_ACCOUNT = 'CREATE_ACCOUNT';
 export const TOGGLE_PASSWORD_VISIBILITY = 'TOGGLE_PASSWORD_VISIBILITY';
+export const CREATE_ACCOUNT_STOP = 'CREATE_ACCOUNT_STOP';
 export const CREATE_ACCOUNT_SUCCESS = 'CREATE_ACCOUNT_SUCCESS';
 export const CREATE_ACCOUNT_FAILURE = 'CREATE_ACCOUNT_FAILURE';
+export const BLOCK_NEW_ACCOUNT_NO_FIRST_NAME = 'BLOCK_NEW_ACCOUNT_NO_FIRST_NAME';
+export const BLOCK_NEW_ACCOUNT_NO_LAST_NAME = 'BLOCK_NEW_ACCOUNT_NO_LAST_NAME';
+export const BLOCK_NEW_ACCOUNT_NO_EMAIL = 'BLOCK_NEW_ACCOUNT_NO_EMAIL';
+export const BLOCK_NEW_ACCOUNT_NO_PASSWORD = 'BLOCK_NEW_ACCOUNT_NO_PASSWORD';
+export const BLOCK_NEW_ACCOUNT_NO_ZIPCODE = 'BLOCK_NEW_ACCOUNT_NO_ZIPCODE';
+export const REQUIRED_FIELD_FILLED = 'REQUIRED_FIELD_FILLED';
 
 export function updateFirstName(firstName) {
   return {
@@ -49,6 +56,49 @@ export function startAccountCreation() {
   };
 }
 
+export function blockNewAccountWithNoFirstName() {
+  return {
+    type: BLOCK_NEW_ACCOUNT_NO_FIRST_NAME,
+  };
+}
+
+export function blockNewAccountWithNoLastName() {
+  return {
+    type: BLOCK_NEW_ACCOUNT_NO_LAST_NAME,
+  };
+}
+
+export function blockNewAccountWithNoEmail() {
+  return {
+    type: BLOCK_NEW_ACCOUNT_NO_EMAIL,
+  };
+}
+
+export function blockNewAccountWithNoPassword() {
+  return {
+    type: BLOCK_NEW_ACCOUNT_NO_PASSWORD,
+  };
+}
+
+export function blockNewAccountWithNoZipcode() {
+  return {
+    type: BLOCK_NEW_ACCOUNT_NO_ZIPCODE,
+  };
+}
+
+export function requiredFieldFilled(isFilled) {
+  return {
+    type: REQUIRED_FIELD_FILLED,
+    isFilled,
+  };
+}
+
+
+export function stopCreateAccount() {
+  return {
+    type: CREATE_ACCOUNT_STOP,
+  };
+}
 
 export function createAccountSuccess(successMessage) {
   return {
@@ -66,31 +116,61 @@ export function createAccount() {
       password,
       zipcode,
     } = getState();
-    const data = {
-      firstName,
-      lastName,
-      email,
-      password,
-      zipcode,
-    };
-    const options = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-      credentials: 'same-origin',
-    };
 
-    dispatch(startAccountCreation());
-    return fetch('/signup', options)
-      .then(
-        response => response.json(),
-        (error) => { console.log('An error occured...', error.message); },
-      )
-      .then(
-        text => dispatch(createAccountSuccess(text)),
-      );
+    if (firstName !== null
+        && lastName !== null
+        && email !== null
+        && password !== null
+        && zipcode !== null
+    ) {
+      dispatch(requiredFieldFilled(true));
+      const data = {
+        firstName,
+        lastName,
+        email,
+        password,
+        zipcode,
+      };
+      const options = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+        credentials: 'same-origin',
+      };
+
+      dispatch(startAccountCreation());
+      return fetch('/signup', options)
+        .then(
+          response => response.json(),
+          (error) => { console.log('An error occured...', error.message); },
+        )
+        .then(
+          (text) => { dispatch(stopCreateAccount()); return dispatch(createAccountSuccess(text)); },
+        );
+    }
+    if (firstName === null) {
+      dispatch(stopCreateAccount());
+      dispatch(blockNewAccountWithNoFirstName());
+    }
+    if (lastName === null) {
+      dispatch(stopCreateAccount());
+      dispatch(blockNewAccountWithNoLastName());
+    }
+    if (email === null) {
+      dispatch(stopCreateAccount());
+      dispatch(blockNewAccountWithNoEmail());
+    }
+    if (password === null) {
+      dispatch(stopCreateAccount());
+      dispatch(blockNewAccountWithNoPassword());
+    }
+    if (zipcode === null) {
+      dispatch(stopCreateAccount());
+      dispatch(blockNewAccountWithNoZipcode());
+    }
+    return dispatch(requiredFieldFilled(false));
   }
 
   return asyncCreateAccount;
