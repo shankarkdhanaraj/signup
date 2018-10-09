@@ -25,6 +25,7 @@ app.post('/signup', jsonParser, (req, res) => {
   if (!isExistingUser(email)) {
     createNewUser(password)
       .then((response) => {
+        console.log('response from login service is...', response);
         const jsonResponse = JSON.parse(response);
         const profile = {
           lastName,
