@@ -25,12 +25,17 @@ app.post('/signup', jsonParser, (req, res) => {
   if (!isExistingUser(email)) {
     createNewUser(password)
       .then((response) => {
+        const jsonResponse = JSON.parse(response);
         const profile = {
-          userId: response,
           lastName,
           firstName,
           email,
           zipcode,
+          username: jsonResponse.username,
+          isActive: jsonResponse.isActive,
+          id: jsonResponse.id,
+          createdAt: jsonResponse.createdAt,
+          updatedAt: jsonResponse.updatedAt,
         };
         res.send(JSON.stringify(profile));
       });
