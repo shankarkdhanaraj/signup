@@ -1,6 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const { isExistingUser, createNewUser, createNewUserProfile } = require('./utils.js');
+const { getUserId, createNewUser, createNewUserProfile } = require('./utils.js');
 // const createNewUser = require('./utils.js');
 // const createNewUserProfile = require('./utils.js');
 
@@ -22,25 +22,71 @@ app.post('/signup', jsonParser, (req, res) => {
     zipcode,
   } = req.body;
 
-  if (!isExistingUser(email)) {
-    createNewUser(password)
-      .then((response) => {
-        console.log('response from login service is...', response);
-        const jsonResponse = JSON.parse(response);
-        const profile = {
-          lastName,
-          firstName,
-          email,
-          zipcode,
-          username: jsonResponse.username,
-          isActive: jsonResponse.isActive,
-          id: jsonResponse.id,
-          createdAt: jsonResponse.createdAt,
-          updatedAt: jsonResponse.updatedAt,
-        };
-        res.send(JSON.stringify(profile));
-      });
-  }
+  getUserId(email)
+    .then((doesUserExist) => {
+      console.log('doesUserExist is ', doesUserExist);
+      if (doesUserExist === 'false') {
+        let profile = {};
+        createNewUser(password)
+          .then((response) => {
+            console.log('response from login service is...', response);
+            const jsonResponse = JSON.parse(response);
+            profile = {
+              lastName,
+              firstName,
+              email,
+              zipcode,
+              userId: jsonResponse.username,
+              // isActive: jsonResponse.isActive,
+              // id: jsonResponse.id,
+              // createdAt: jsonResponse.createdAt,
+              // updatedAt: jsonResponse.updatedAt,
+            };
+            return createNewUserProfile(profile);
+          })
+          .then((responseStatusFromProfileMS) => {
+            if (responseStatusFromProfileMS === 201) {
+              res.send('profile created');
+            } else {
+              res.send('profile not created');
+            }
+          }, (error) => {
+            console.log('error returned in profile creation call to profile microservice...', error.message);
+          });
+      } else {
+        res.send('user already exists');
+      }
+    });
+
+  // if (isExistingUser(email) === 'false') {
+  //   let profile = {};
+  //   createNewUser(password)
+  //     .then((response) => {
+  //       console.log('response from login service is...', response);
+  //       const jsonResponse = JSON.parse(response);
+  //       profile = {
+  //         lastName,
+  //         firstName,
+  //         email,
+  //         zipcode,
+  //         userId: jsonResponse.username,
+  //         // isActive: jsonResponse.isActive,
+  //         // id: jsonResponse.id,
+  //         // createdAt: jsonResponse.createdAt,
+  //         // updatedAt: jsonResponse.updatedAt,
+  //       };
+  //       return createNewUserProfile(profile);
+  //     })
+  //     .then((responseFromProfileMS) => {
+  //       if (responseFromProfileMS === 'created') {
+  //         res.send(JSON.stringify(profile));
+  //       } else {
+  //         res.send('profile not created');
+  //       }
+  //     });
+  // } else {
+  //   res.send('user already exists');
+  // }
 });
 
 

@@ -143,7 +143,7 @@ export function createAccount() {
       dispatch(startAccountCreation());
       return fetch('/signup', options)
         .then(
-          response => response.json(),
+          response => response.text(),
           (error) => { console.log('An error occured...', error.message); },
         )
         .then(
