@@ -57,36 +57,6 @@ app.post('/signup', jsonParser, (req, res) => {
         res.send('user already exists');
       }
     });
-
-  // if (isExistingUser(email) === 'false') {
-  //   let profile = {};
-  //   createNewUser(password)
-  //     .then((response) => {
-  //       console.log('response from login service is...', response);
-  //       const jsonResponse = JSON.parse(response);
-  //       profile = {
-  //         lastName,
-  //         firstName,
-  //         email,
-  //         zipcode,
-  //         userId: jsonResponse.username,
-  //         // isActive: jsonResponse.isActive,
-  //         // id: jsonResponse.id,
-  //         // createdAt: jsonResponse.createdAt,
-  //         // updatedAt: jsonResponse.updatedAt,
-  //       };
-  //       return createNewUserProfile(profile);
-  //     })
-  //     .then((responseFromProfileMS) => {
-  //       if (responseFromProfileMS === 'created') {
-  //         res.send(JSON.stringify(profile));
-  //       } else {
-  //         res.send('profile not created');
-  //       }
-  //     });
-  // } else {
-  //   res.send('user already exists');
-  // }
 });
 
 
