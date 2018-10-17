@@ -5,6 +5,7 @@ const { getUserId, createNewUser, createNewUserProfile } = require('./utils.js')
 // const createNewUserProfile = require('./utils.js');
 
 const PORT = process.env.PORT || 3000;
+const API_GATEWAY_URL = process.env.API_GATEWAY_URL || 'http://18.191.158.114:8000/';
 
 
 const app = express();
@@ -46,8 +47,11 @@ app.post('/signup', jsonParser, (req, res) => {
           })
           .then((responseStatusFromProfileMS) => {
             if (responseStatusFromProfileMS === 201) {
-              res.send('profile created');
+              console.log('redirecting now....');
+              res.status(302);
+              res.redirect(`${API_GATEWAY_URL}`);
             } else {
+              res.status(503);
               res.send('profile not created');
             }
           }, (error) => {

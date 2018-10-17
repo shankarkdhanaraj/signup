@@ -143,12 +143,28 @@ export function createAccount() {
       dispatch(startAccountCreation());
       return fetch('/signup', options)
         .then(
-          response => response.text(),
+          (response) => {
+            dispatch(stopCreateAccount());
+
+            if (response.status === 302) {
+              // REDIRECT
+              dispatch(createAccountSuccess(response.text()));
+              window.top.location = response.url;
+            } else if (response.status === 503) {
+              // PROFILE NOT CREATED MESSAGE
+              return response.text();
+            }
+            return 'Cannot create the account';
+          },
           (error) => { console.log('An error occured...', error.message); },
-        )
-        .then(
-          (text) => { dispatch(stopCreateAccount()); return dispatch(createAccountSuccess(text)); },
         );
+        // .then(
+        //   (text) => {
+        //     dispatch(stopCreateAccount());
+        //     dispatch(createAccountSuccess(text));
+
+        //   },
+        // );
     }
     if (firstName === null) {
       dispatch(stopCreateAccount());
