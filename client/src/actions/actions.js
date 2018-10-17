@@ -146,7 +146,7 @@ export function createAccount() {
           (response) => {
             console.log('response to account signup is...', response);
             dispatch(stopCreateAccount());
-            if (response.status === 302) {
+            if (response.status === 302 || response.status === 200) {
               // REDIRECT
               dispatch(createAccountSuccess(response.text()));
               console.log('redirecting to landing page after account creation...');
