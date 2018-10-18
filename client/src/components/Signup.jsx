@@ -128,13 +128,13 @@ const Signup = ({
         </div>
       </Grid>
       <Grid>
-        {accountFailureReason !== null ? <InputLabel htmlFor="signup-error" className="password">{`Account creation failed, ${accountFailureReason}`}</InputLabel> : null}
-      </Grid>
-      <Grid>
         <Button variant="contained" color="primary" className="create-new-account submit-form" onClick={() => createAccount()}>
           Create New Account
           <Icon><AccountBox /></Icon>
         </Button>
+      </Grid>
+      <Grid>
+        {accountFailureReason !== null ? <InputLabel htmlFor="signup-error">{`Account creation failed, ${accountFailureReason}`}</InputLabel> : null}
       </Grid>
     </form>
   </div>
