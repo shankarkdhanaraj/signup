@@ -46,6 +46,7 @@ const Signup = ({
   emailNotEntered,
   passwordNotEntered,
   zipcodNotEntered,
+  accountFailureReason,
 }) => (
   <div>
     <form>
@@ -125,6 +126,9 @@ const Signup = ({
             />
           </FormControl>
         </div>
+      </Grid>
+      <Grid>
+        {accountFailureReason !== null ? <InputLabel htmlFor="signup-error" className="password">{`Account creation failed, ${accountFailureReason}`}</InputLabel> : null}
       </Grid>
       <Grid>
         <Button variant="contained" color="primary" className="create-new-account submit-form" onClick={() => createAccount()}>

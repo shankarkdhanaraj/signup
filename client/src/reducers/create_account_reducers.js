@@ -57,6 +57,15 @@ export function createAccountFailureReducer(state = null, action) {
   }
 }
 
+export function failureReasonReducer(state = null, action) {
+  switch (action.type) {
+    case CREATE_ACCOUNT_FAILURE:
+      return action.reason;
+    default:
+      return state;
+  }
+}
+
 export function firstNameEntryChecker(state = false, action) {
   switch (action.type) {
     case BLOCK_NEW_ACCOUNT_NO_FIRST_NAME:

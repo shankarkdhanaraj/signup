@@ -28,6 +28,7 @@ const mapStateToProps = ({
   emailNotEntered,
   passwordNotEntered,
   zipcodNotEntered,
+  accountFailureReason,
 }) => ({
   showPassword,
   firstNameNotEntered,
@@ -35,6 +36,7 @@ const mapStateToProps = ({
   emailNotEntered,
   passwordNotEntered,
   zipcodNotEntered,
+  accountFailureReason,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Signup);

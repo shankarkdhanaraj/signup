@@ -107,6 +107,13 @@ export function createAccountSuccess(successMessage) {
   };
 }
 
+export function createAccountFailure(reason) {
+  return {
+    type: CREATE_ACCOUNT_FAILURE,
+    reason,
+  };
+}
+
 export function createAccount() {
   function asyncCreateAccount(dispatch, getState) {
     const {
@@ -157,13 +164,14 @@ export function createAccount() {
           return { reason: 'unknown' };
         })
         .then((jsonResponse) => {
+          dispatch(stopCreateAccount());
           if (jsonResponse.reason === 'existing email') {
             console.log('Account not created, email already exists');
+            dispatch(createAccountFailure(jsonResponse.reason));
           } else {
             console.log('Account not created, unknow reason');
+            dispatch(createAccountFailure('unknown'));
           }
-          dispatch(stopCreateAccount());
-          dispatch(createAccountSuccess('failed'));
         })
         .catch(error => console.log('account not created, unknown reason...', error.message));
     }
