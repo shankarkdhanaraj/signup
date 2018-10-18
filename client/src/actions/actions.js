@@ -142,32 +142,30 @@ export function createAccount() {
 
       dispatch(startAccountCreation());
       return fetch('/signup', options)
-        .then(
-          (response) => {
-            console.log('response to account signup is...', response);
-            dispatch(stopCreateAccount());
-            if (response.status === 302 || response.status === 200) {
-              // REDIRECT
-              dispatch(createAccountSuccess(response.text()));
-              console.log('redirecting to landing page after account creation...');
-              window.top.location = response.url;
-              console.log('response to account signup is...', response);
-            } else if (response.status === 503) {
-              // PROFILE NOT CREATED MESSAGE
-              console.log('Cannot create account');
-              return response.text();
-            }
-            return 'Cannot create the account';
-          },
-          (error) => { console.log('An error occured...', error.message); },
-        );
-        // .then(
-        //   (text) => {
-        //     dispatch(stopCreateAccount());
-        //     dispatch(createAccountSuccess(text));
-
-        //   },
-        // );
+        .then((response) => {
+          console.log('response to account signup is...', response);
+          dispatch(stopCreateAccount());
+          // if (response.status === 302 || response.status === 200) {
+          if (response.redirected) {
+            // REDIRECT
+            dispatch(createAccountSuccess('success'));
+            console.log('redirecting to landing page after account creation...');
+            window.top.location = response.url;
+          } else {
+            return response.json();
+          }
+          return { reason: 'unknown' };
+        })
+        .then((jsonResponse) => {
+          if (jsonResponse.reason === 'existing email') {
+            console.log('Account not created, email already exists');
+          } else {
+            console.log('Account not created, unknow reason');
+          }
+          dispatch(stopCreateAccount());
+          dispatch(createAccountSuccess('failed'));
+        })
+        .catch(error => console.log('account not created, unknown reason...', error.message));
     }
     if (firstName === null) {
       dispatch(stopCreateAccount());
