@@ -38,10 +38,6 @@ app.post('/signup', jsonParser, (req, res) => {
               email,
               zipcode,
               userId: jsonResponse.username,
-              // isActive: jsonResponse.isActive,
-              // id: jsonResponse.id,
-              // createdAt: jsonResponse.createdAt,
-              // updatedAt: jsonResponse.updatedAt,
             };
             return createNewUserProfile(profile);
           })
@@ -52,13 +48,14 @@ app.post('/signup', jsonParser, (req, res) => {
               res.redirect(`${API_GATEWAY_URL}`);
             } else {
               res.status(503);
-              res.send('profile not created');
+              res.json({ status: false, reason: 'unknown reason' });
             }
           }, (error) => {
             console.log('error returned in profile creation call to profile microservice...', error.message);
           });
       } else {
-        res.send('user already exists');
+        console.log('There is an existing user with the email...', email);
+        res.json({ status: false, reason: 'existing email' }); // MORE GRACEFUL HANDLING
       }
     });
 });
