@@ -151,6 +151,7 @@ export function createAccount() {
               dispatch(createAccountSuccess(response.text()));
               console.log('redirecting to landing page after account creation...');
               window.top.location = response.url;
+              console.log('response to account signup is...', response);
             } else if (response.status === 503) {
               // PROFILE NOT CREATED MESSAGE
               console.log('Cannot create account');
