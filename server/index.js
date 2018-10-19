@@ -36,7 +36,7 @@ app.post('/signup', jsonParser, (req, res) => {
               lastName,
               firstName,
               email,
-              zipcode,
+              zipCode: zipcode,
               userId: jsonResponse.username,
             };
             return createNewUserProfile(profile);
