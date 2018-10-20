@@ -159,8 +159,8 @@ function Signup(props) {
           </Paper>
           <Paper className={classes.paper}>
             <Button variant="contained" color="primary" className={classes.button} onClick={() => createAccount()}>
-              Create New Account
               <Icon><AccountBox /></Icon>
+              Signup
             </Button>
             {accountFailureReason !== null ? <InputLabel className={classes.signupnerror} htmlFor="signup-error">{`Account creation failed. Reason - ${accountFailureReason}`}</InputLabel> : null}
           </Paper>
